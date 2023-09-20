@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  springboot:
+    image: aravindkumar123/spring:1
+    restart: always
+    environment:
+    - MONGO_DB_HOSTNAME=mongo
+    - MONGO_DB_USERNAME=admin
+    - MONGO_DB_PASSWORD=admin123
+    ports:
+      - 8081:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    networks:
+    - spring
+  mongo:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=admin
+    - MONGO_INITDB_ROOT_PASSWORD=admin123
+    volumes:
+      - volumes1:/data/db
+    restart: always
+    networks:
+    - spring
+
+volumes:
+  volumes1:
+
+networks:
+  spring:
